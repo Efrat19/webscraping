@@ -6,10 +6,11 @@ from urllib.request import urlopen
 
 from bs4 import BeautifulSoup as soup
 
+from Yad2.helper import hasNumbers
+
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
-
 
 class WebScrapper:
 
@@ -40,6 +41,20 @@ class WebScrapper:
         self.page_soup = self.get_page_soup()
 
 
+class RowInfo:
+
+    def __init__(self, address, rooms, floor_num, size, price):
+        self.address = address
+        self.rooms = rooms
+        self.floor_num = floor_num
+        self.size = size
+        self.price = price
+
+    @staticmethod
+    def row_validator(address, rooms, floor_num, size, price):
+        pass
+
+
 def main():
     def get_yad2_next_page(page_soup):
         next_page_text_list = page_soup.find_all('span', {'class': 'navigation-button-text next-text'})
@@ -64,21 +79,38 @@ def main():
 
         right_col_div_list = feed_item.find_all('div', {"class": "right_col"})
         assert len(right_col_div_list) == 1
-        right_col_div = right_col_div_list[0]  # print (right_col_div, "\n")
+        right_col_div = right_col_div_list[0]
         # get address
         rows = right_col_div.find_all('div', {"class": "rows"})  # print (rows)
         assert len(rows) == 1
         row = rows[0]
         address = row.find('span', {'class': 'title'}).get_text()
-        return address.rstrip().strip()
+        clean_address = address.rstrip().strip()
+
+        if hasNumbers(clean_address):
+            return clean_address
+        else:
+            logger.warning('address={} doesnt have number'.format(clean_address))
+            return None
 
     def extract_room_floor_size_from_feed_item(feed_item):
         middle_col_div_list = feed_item.find_all('div', {"class": "middle_col"})
         assert len(middle_col_div_list) == 1
         middle_col_div = middle_col_div_list[0]
+
         rooms_num = middle_col_div.find('span', {'id': re.compile('data_rooms_[0-9]*')}).get_text()
         floor_num = middle_col_div.find('span', {'id': re.compile('data_floor_[0-9]*')}).get_text()
         square_meter = middle_col_div.find('span', {'id': re.compile('data_SquareMeter[0-9]*')}).get_text()
+
+        if floor_num == 'קרקע':
+            floor_num = '0 '
+
+        element_list = [rooms_num, square_meter]
+        print(element_list)
+        for i in range(len(element_list)):
+            if not hasNumbers(element_list[i]):
+                logger.warning('element[{}]={} is not valid'.format(i, element_list[i]))
+                element_list[i] = None
 
         return rooms_num, floor_num, square_meter
 
@@ -92,29 +124,32 @@ def main():
         dirty_price = dirty_price_list[0]
         dirty_price_text = dirty_price.get_text()
         clean_price = dirty_price_text.strip().replace('₪', '').rstrip().replace(',', '')
-        # check there are char
-        for c in clean_price:
-            if not c.isdigit():
-                logger.warning("price is not valid! price={}".format(clean_price))
-                return None
+
+        if not hasNumbers(clean_price):
+            logger.warning("price is not valid! price={}".format(clean_price))
+            return None
+
         return clean_price
 
     def print_yellow_feed_items_for_page(page_soup):
+        rows_info_list = []
+
         feed_items_tables = page_soup.find_all("div", {"class": "feeditem table"})
         for feed_item in feed_items_tables:
             # right column
             address = extract_right_col_price_from_feed_item(feed_item)
-            logger.info('address={}'.format(address))
+            print('address={}'.format(address))
 
             # center column
             rooms_num, floor_num, square_meter = extract_room_floor_size_from_feed_item(feed_item)
-            logger.info('rooms_num={}, floor_num={}, square_meter={}'.format(rooms_num, floor_num, square_meter))
+            print('rooms_num={}, floor_num={}, square_meter={}'.format(rooms_num, floor_num, square_meter))
 
             # left column
             price = extract_left_col_price_from_feed_item(feed_item)
-            logger.info(price)
+            print(price)
 
             # Todo: create feed item class
+            row_info = RowInfo(address, rooms_num, floor_num, square_meter, price)
 
         print("#feed_item_table={}".format(len(feed_items_tables)))
 
