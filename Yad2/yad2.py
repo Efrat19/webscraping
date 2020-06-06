@@ -1,6 +1,7 @@
 import logging
 import os
 import re
+from collections import defaultdict
 from urllib.error import HTTPError
 from urllib.request import urlopen
 
@@ -12,15 +13,15 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
+
 class WebScrapper:
 
     def __init__(self, url):
-        self.my_url = url
-        self.page_soup = self.get_page_soup()
+        self.page_soup = self.get_page_soup(url)
 
-    def get_page_soup(self):
+    def get_page_soup(self, url):
         try:
-            page_html = self.get_url_open(self.my_url)
+            page_html = self.get_url_open(url)
         except HTTPError as e:
             print(e)
         else:
@@ -35,46 +36,18 @@ class WebScrapper:
         uClient.close()
         return page_html
 
-    def set_new_url_and_page_soup(self, new_url):
-        print("set new_url={}".format(new_url))
-        self.my_url = new_url
-        self.page_soup = self.get_page_soup()
 
+class Yad2page:
+    HAIFA = '4000'
+    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=112'
 
-class RowInfo:
-
-    def __init__(self, address, rooms, floor_num, size, price):
-        self.address = address
-        self.rooms = rooms
-        self.floor_num = floor_num
-        self.size = size
-        self.price = price
+    def __init__(self, city):
+        self.current_page_url = self.base_url.format(city)
+        self.scrapper = WebScrapper(self.current_page_url)
+        self.page_num = 1
+        self.rows_info = defaultdict(list)
 
     @staticmethod
-    def row_validator(address, rooms, floor_num, size, price):
-        pass
-
-
-def main():
-    def get_yad2_next_page(page_soup):
-        next_page_text_list = page_soup.find_all('span', {'class': 'navigation-button-text next-text'})
-        assert len(next_page_text_list) == 1
-        next_page_text = next_page_text_list[0]
-        assert next_page_text.get_text() == 'הבא'
-        next_page_text_parent = next_page_text.parent
-        href_attr_list = next_page_text_parent.get_attribute_list('href')
-        assert len(href_attr_list) == 1
-        href_attr = href_attr_list[0]
-        next_page_suffix = href_attr
-        return YAD2_URL_PREFIX + next_page_suffix
-
-    HAIFA = '4000'
-    yad2_url = "https://www.yad2.co.il/realestate/forsale?city={}&page=2".format(HAIFA)
-    print(yad2_url)
-    yad2 = WebScrapper(yad2_url)
-
-    # get_yad2_next_page(yad2.page_soup)
-
     def extract_right_col_price_from_feed_item(feed_item):
 
         right_col_div_list = feed_item.find_all('div', {"class": "right_col"})
@@ -93,6 +66,7 @@ def main():
             logger.warning('address={} doesnt have number'.format(clean_address))
             return None
 
+    @staticmethod
     def extract_room_floor_size_from_feed_item(feed_item):
         middle_col_div_list = feed_item.find_all('div', {"class": "middle_col"})
         assert len(middle_col_div_list) == 1
@@ -114,6 +88,7 @@ def main():
 
         return rooms_num, floor_num, square_meter
 
+    @staticmethod
     def extract_left_col_price_from_feed_item(feed_item):
         left_col_div_list = feed_item.find_all('div', {'class': "left_col"})  # consider regex
         assert len(left_col_div_list) == 1
@@ -131,34 +106,92 @@ def main():
 
         return clean_price
 
-    def print_yellow_feed_items_for_page(page_soup):
-        rows_info_list = []
+    def extract_yellow_feed_items_for_page(self, page_soup):
 
         feed_items_tables = page_soup.find_all("div", {"class": "feeditem table"})
         for feed_item in feed_items_tables:
             # right column
-            address = extract_right_col_price_from_feed_item(feed_item)
-            print('address={}'.format(address))
+            address = self.extract_right_col_price_from_feed_item(feed_item)
 
             # center column
-            rooms_num, floor_num, square_meter = extract_room_floor_size_from_feed_item(feed_item)
-            print('rooms_num={}, floor_num={}, square_meter={}'.format(rooms_num, floor_num, square_meter))
+            rooms_num, floor_num, square_meter = self.extract_room_floor_size_from_feed_item(feed_item)
 
             # left column
-            price = extract_left_col_price_from_feed_item(feed_item)
-            print(price)
+            price = self.extract_left_col_price_from_feed_item(feed_item)
 
-            # Todo: create feed item class
             row_info = RowInfo(address, rooms_num, floor_num, square_meter, price)
+
+            print("adding row_info={} to self.rows_info".format(row_info.__dict__))
+            self.rows_info[self.page_num].append(row_info)
 
         print("#feed_item_table={}".format(len(feed_items_tables)))
 
-    print_yellow_feed_items_for_page(yad2.page_soup)
+    def sets_for_next_page(self):
+        new_url = self.get_yad2_next_page_url(self.scrapper.page_soup)
+        print("set new_url={}".format(new_url))
+        self.current_page_url = new_url
+        self.scrapper.page_soup = self.scrapper.get_page_soup(new_url)
+        self.page_num += 1
 
-    next_page_url = get_yad2_next_page(yad2.page_soup)
-    yad2.set_new_url_and_page_soup(next_page_url)
+    @staticmethod
+    def does_have_next_page(page_soup):
+        next_button_list = page_soup.find_all('', {
+            'class': 'internalLink no-button pagination-nav next nuxt-link-exact-active nuxt-link-active disabled'})
+        if len(next_button_list) > 0:
+            assert (len(next_button_list) == 1)
+            next_button = next_button_list[0]
+            if 'disabled' in next_button.get('class')[-1]:
+                return False
+        return True
 
-    print_yellow_feed_items_for_page(yad2.page_soup)
+    def get_yad2_next_page_url(self, page_soup):
+        next_page_text_list = page_soup.find_all('span', {'class': 'navigation-button-text next-text'})
+        assert len(next_page_text_list) == 1
+        next_page_text = next_page_text_list[0]
+        assert next_page_text.get_text() == 'הבא'
+        next_page_text_parent = next_page_text.parent
+        href_attr_list = next_page_text_parent.get_attribute_list('href')
+        assert len(href_attr_list) == 1
+        href_attr = href_attr_list[0]
+        next_page_suffix = href_attr
+        return YAD2_URL_PREFIX + next_page_suffix
+
+
+class RowInfo:
+
+    def __init__(self, address, rooms, floor_num, size, price):
+        self.address = address
+        self.rooms = rooms
+        self.floor_num = floor_num
+        self.size = size
+        self.price = price
+
+    @staticmethod
+    def row_validator(address, rooms, floor_num, size, price):
+        pass
+
+
+def main():
+    yad2 = Yad2page(Yad2page.HAIFA)
+    print("yad2.current_page_url={}".format(yad2.current_page_url))
+
+    yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+
+    while yad2.does_have_next_page(yad2.scrapper.page_soup):
+        yad2.sets_for_next_page()
+        yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+
+    print(yad2.rows_info.keys())
+    print(v.__dict__ for v in yad2.rows_info.values())
+
+    # yad2 = WebScrapper(yad2.current_page_url)
+
+    # get_yad2_next_page(yad2.page_soup)
+
+    # next_page_url = get_yad2_next_page(yad2.page_soup)
+    # yad2.set_new_url_and_page_soup(next_page_url)
+
+    # print_yellow_feed_items_for_page(yad2.page_soup)
 
 
 if __name__ == '__main__':
