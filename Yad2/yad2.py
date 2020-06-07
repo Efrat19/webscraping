@@ -238,12 +238,10 @@ def main():
     yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
     insert_rows_info_page_to_sqlite(yad2)
 
-    # while yad2.does_have_next_page(yad2.scrapper.page_soup):
-    #     yad2.sets_for_next_page()
-    #
-    #     # update the db
-    #     insert_rows_info_page_to_sqlite(yad2)
-    #     yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+    while yad2.does_have_next_page(yad2.scrapper.page_soup):
+        yad2.sets_for_next_page()
+        yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+        insert_rows_info_page_to_sqlite(yad2)
 
     # print(v.__dict__ for v in yad2.page_row_info_dict.values())
     # yad2 = WebScrapper(yad2.current_page_url)
