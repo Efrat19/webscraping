@@ -8,11 +8,14 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup as soup
 
 from Yad2.helper import hasNumbers
+from Yad2.sqlite import CityRecordsSqlite
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
+sqlite = CityRecordsSqlite('haifa', path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
+staring_page = 118
 
 class WebScrapper:
 
@@ -39,13 +42,13 @@ class WebScrapper:
 
 class Yad2page:
     HAIFA = '4000'
-    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=112'
+    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=118'  # starting from 1
 
     def __init__(self, city):
         self.current_page_url = self.base_url.format(city)
         self.scrapper = WebScrapper(self.current_page_url)
         self.page_num = 1
-        self.rows_info = defaultdict(list)
+        self.page_row_info_dict = defaultdict(set)
 
     @staticmethod
     def extract_right_col_price_from_feed_item(feed_item):
@@ -121,8 +124,8 @@ class Yad2page:
 
             row_info = RowInfo(address, rooms_num, floor_num, square_meter, price)
 
-            print("adding row_info={} to self.rows_info".format(row_info.__dict__))
-            self.rows_info[self.page_num].append(row_info)
+            print("adding row_info={} to self.page_row_info_dict".format(row_info.__dict__))
+            self.page_row_info_dict[self.page_num].add(row_info)
 
         print("#feed_item_table={}".format(len(feed_items_tables)))
 
@@ -160,15 +163,72 @@ class Yad2page:
 class RowInfo:
 
     def __init__(self, address, rooms, floor_num, size, price):
-        self.address = address
-        self.rooms = rooms
-        self.floor_num = floor_num
-        self.size = size
-        self.price = price
+        self._address = address
+        self._rooms = rooms
+        self._floor_num = floor_num
+        self._size = size
+        self._price = price
+
+    def __repr__(self):
+        return str(self.__dict__)
 
     @staticmethod
     def row_validator(address, rooms, floor_num, size, price):
         pass
+
+    @property
+    def address(self):
+        return self._address
+
+    @property
+    def rooms(self):
+        return self._rooms
+
+    @property
+    def floor_num(self):
+        return self._floor_num
+
+    @property
+    def size(self):
+        return self._size
+
+    @property
+    def price(self):
+        return self._price
+
+    @address.setter
+    def address(self, address):
+        self._address = address
+
+    @rooms.setter
+    def rooms(self, rooms):
+        self._rooms = rooms
+
+    @floor_num.setter
+    def floor_num(self, size):
+        self._size = size
+
+    @price.setter
+    def price(self, price):
+        self._price = price
+
+
+def insert_rows_info_page_to_sqlite(yad2):
+    row_info_list = yad2.page_row_info_dict[yad2.page_num]
+    print("working on pag_num={}".format(yad2.page_num))
+
+    # using filter function
+    rows_info_with_missing_data = set(filter(lambda row_info: None in row_info.__dict__.values(), row_info_list))
+    print('out of total of {}, {} had missing data '.format(len(row_info_list), len(rows_info_with_missing_data)))
+    for row_info_with_missing_data in rows_info_with_missing_data:
+        logger.debug(row_info_with_missing_data)
+
+    rows_info_with_all_needed_data = row_info_list - rows_info_with_missing_data
+    print('len(rows_info_with_all_needed_data)={}'.format(len(rows_info_with_all_needed_data)))
+
+    for complete_row_info in rows_info_with_all_needed_data:
+        print('inserting the following complete_work_info dict:{}'.format(complete_row_info))
+        sqlite.insert(complete_row_info)
 
 
 def main():
@@ -176,22 +236,20 @@ def main():
     print("yad2.current_page_url={}".format(yad2.current_page_url))
 
     yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+    insert_rows_info_page_to_sqlite(yad2)
 
-    while yad2.does_have_next_page(yad2.scrapper.page_soup):
-        yad2.sets_for_next_page()
-        yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+    # while yad2.does_have_next_page(yad2.scrapper.page_soup):
+    #     yad2.sets_for_next_page()
+    #
+    #     # update the db
+    #     insert_rows_info_page_to_sqlite(yad2)
+    #     yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
 
-    print(yad2.rows_info.keys())
-    print(v.__dict__ for v in yad2.rows_info.values())
-
+    # print(v.__dict__ for v in yad2.page_row_info_dict.values())
     # yad2 = WebScrapper(yad2.current_page_url)
-
     # get_yad2_next_page(yad2.page_soup)
-
     # next_page_url = get_yad2_next_page(yad2.page_soup)
     # yad2.set_new_url_and_page_soup(next_page_url)
-
-    # print_yellow_feed_items_for_page(yad2.page_soup)
 
 
 if __name__ == '__main__':
