@@ -86,10 +86,12 @@ class Mapi:
         for result in result_class_name:
             if result.text != '':
                 assert ('תוצאה' in result.text)
-                for num_trials in range(5):
+                for num_trials in range(3):
                     print('loop#={}'.format(num_trials))
                     if ('גוש' in result.text):
                         break
+                    elif ('לא נמצא ערך' in result.text):
+                        raise Exception('לא נמצא ערך')
                     sleep(2)
                 assert ('גוש' in result.text)
                 tabu_location = result.find_element(By.TAG_NAME, 'span').text
