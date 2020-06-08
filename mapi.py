@@ -1,5 +1,6 @@
 import logging
 import os
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -7,7 +8,6 @@ from selenium.webdriver.common.by import By
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
-mapi_url = 'https://www.mapi.gov.il/Pages/LotAddressLocator.aspx'
 executable_path_phantomjs = '/Users/idan.narotzki/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs'
 executable_firefox = '/Users/idan.narotzki/Downloads/firefox'
 
@@ -44,12 +44,20 @@ waitForLoad(driver)
 print(driver.page_source)"""
 
 
-def main():
-    driver = webdriver.Firefox()
-    driver.get(mapi_url)
+class Mapi:
+    mapi_url = 'https://www.mapi.gov.il/Pages/LotAddressLocator.aspx'
 
-    def fill_address(driver, address):
-        inputbox = driver.find_element_by_id('AddressInput')
+    def __init__(self, hebrew_city):
+        self.hebrew_city = hebrew_city
+        self.driver = webdriver.Firefox()
+        self.driver.get(Mapi.mapi_url)
+
+    def fill_address(self, address):
+        # Todo: make sure the address is empty
+        address = address + ' ' + self.hebrew_city
+        inputbox = self.driver.find_element_by_id('AddressInput')
+        logger.debug(inputbox.get_attribute('value'))  # get the typed text
+        inputbox.clear()
         displayed = inputbox.is_displayed()
         enabled = inputbox.is_enabled()
         print(displayed, enabled)
@@ -60,9 +68,9 @@ def main():
             logger.exception('error sending keys with address: {}'.format(address))
             raise
 
-    def find_search_button():
-        links = driver.find_elements(By.TAG_NAME, 'a')
-        print("links={}".format(len(links)))
+    def find_search_button(self):
+        links = self.driver.find_elements(By.TAG_NAME, 'a')
+        logger.debug("links={}".format(len(links)))
         search_button = None
         for link in links:
             if link.text == "חפש":
@@ -70,12 +78,8 @@ def main():
                 break
         return search_button
 
-    fill_address(driver, 'קרן היסוד 10 חיפה')
-    search_button = find_search_button()
-    search_button.click()
-
-    def extract_gush_helka(driver):
-        result_class_name = driver.find_elements(By.CLASS_NAME, 'Result')
+    def extract_gush_helka(self):
+        result_class_name = self.driver.find_elements(By.CLASS_NAME, 'Result')
         assert len(result_class_name) == 2
         logger.debug(result_class_name)
         tabu_location = None
@@ -86,6 +90,7 @@ def main():
                     print('loop#={}'.format(num_trials))
                     if ('גוש' in result.text):
                         break
+                    sleep(2)
                 assert ('גוש' in result.text)
                 tabu_location = result.find_element(By.TAG_NAME, 'span').text
                 assert ('תוצאה' not in tabu_location)
@@ -97,9 +102,17 @@ def main():
         helka = splitted_tabu_location[1].replace('חלקה ', '')
         return gush, helka
 
-    gush, helka = extract_gush_helka(driver)
-    logger.info('gush={}, helka={}'.format(gush, helka))
+    def execute(self, address):
+        self.fill_address(address)
+        search_button = self.find_search_button()
+        search_button.click()
+        try:
+            gush, helka = self.extract_gush_helka()
+            print('gush={}, helka={}'.format(gush, helka))
+            return gush, helka
+        except Exception as e:
+            logger.warning('could  NOT find gush,helka for address={}'.format(address + ' ' + self.hebrew_city))
+            return 1, 1
 
-
-if "main" == __name__:
-    main()
+# mapi = Mapi('חיפה')
+# mapi.execute('קרן היסוד 10 חיפה')

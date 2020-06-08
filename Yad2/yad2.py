@@ -8,14 +8,15 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup as soup
 
 from Yad2.helper import hasNumbers
-from Yad2.sqlite import CityRecordsSqlite
+from mapi import Mapi
+from sqlite import CityRecordsSqlite
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
 sqlite = CityRecordsSqlite('haifa', path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
-staring_page = 118
+staring_page = 1
 
 class WebScrapper:
 
@@ -42,7 +43,7 @@ class WebScrapper:
 
 class Yad2page:
     HAIFA = '4000'
-    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=118'  # starting from 1
+    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=1'  # starting from 1
 
     def __init__(self, city):
         self.current_page_url = self.base_url.format(city)
@@ -214,6 +215,7 @@ class RowInfo:
 
 
 def insert_rows_info_page_to_sqlite(yad2):
+    mapi = Mapi('חיפה')
     row_info_list = yad2.page_row_info_dict[yad2.page_num]
     print("working on pag_num={}".format(yad2.page_num))
 
@@ -221,14 +223,16 @@ def insert_rows_info_page_to_sqlite(yad2):
     rows_info_with_missing_data = set(filter(lambda row_info: None in row_info.__dict__.values(), row_info_list))
     print('out of total of {}, {} had missing data '.format(len(row_info_list), len(rows_info_with_missing_data)))
     for row_info_with_missing_data in rows_info_with_missing_data:
-        logger.debug(row_info_with_missing_data)
+        logger.info(row_info_with_missing_data)
 
     rows_info_with_all_needed_data = row_info_list - rows_info_with_missing_data
     print('len(rows_info_with_all_needed_data)={}'.format(len(rows_info_with_all_needed_data)))
 
     for complete_row_info in rows_info_with_all_needed_data:
         print('inserting the following complete_work_info dict:{}'.format(complete_row_info))
-        sqlite.insert(complete_row_info)
+        gush, helka = mapi.execute(complete_row_info.address)
+        print('gush={} , helka={}'.format(gush, helka))
+        sqlite.insert(complete_row_info, gush, helka)
 
 
 def main():
