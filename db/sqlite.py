@@ -17,7 +17,7 @@ class CityRecordsSqlite(object):
         db_path = os.path.join(path, 'sqlite_' + self.db_name)
         self.sqlite_connection = sqlite3.connect(db_path)
 
-        sqlite_create_table_query = 'CREATE TABLE if NOT EXISTS yad2_records (' \
+        sqlite_create_table_query = 'CREATE TABLE if NOT EXISTS "{}" (' \
                                     'id INTEGER PRIMARY KEY,' \
                                     'address TEXT  NOT NULL,' \
                                     'rooms TEXT NOT NULL, ' \
@@ -28,7 +28,8 @@ class CityRecordsSqlite(object):
                                     'updated_at datetime NOT NULL, ' \
                                     'gush TEXT NULL, ' \
                                     'helka TEXT NULL , ' \
-                                    ' UNIQUE (address, rooms, floor_num, size, price));'
+                                    ' UNIQUE (address, rooms, floor_num, size, price));' \
+            .format(self.table_name)
 
         cursor = self.sqlite_connection.cursor()
         self.sqlite_connection.row_factory = sqlite3.Row
@@ -69,6 +70,27 @@ class CityRecordsSqlite(object):
         self.sqlite_connection.commit()
         print("Record inserted successfully")
         cursor.close()
+
+    def select_address_and_print(self, add):
+        print('selecting address={}'.format(add))
+        cursor = self.sqlite_connection.cursor()
+
+        select_query = "SELECT * FROM '{}' WHERE address='{}'".format(self.table_name, add)
+
+        try:
+            query_result = cursor.execute(select_query)
+            rows = query_result.fetchall()
+            n = len(rows)
+            for i in range(n):
+                print('match row_num={}'.format(i))
+                row = rows[i]
+                print('address={}'.format(row['address']))
+                print('keys={}'.format(row.keys()))
+                for memeber in row:
+                    print('{}'.format(memeber))
+                    # print ('{}={}'.format(memeber, row[memeber]))
+        finally:
+            cursor.close()
 
     def update_file_path_fixed(self, row_info, gush, helka):
         query = "UPDATE {} SET updated_at = '{}', gush = '{}', helka = '{}' " \

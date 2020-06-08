@@ -8,8 +8,8 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup as soup
 
 from Yad2.helper import hasNumbers
-from mapi import Mapi
-from sqlite import CityRecordsSqlite
+from db.sqlite import CityRecordsSqlite
+from detect_tabu.mapi import Mapi
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
@@ -50,9 +50,9 @@ class Yad2page:
         self.scrapper = WebScrapper(self.current_page_url)
         self.page_num = 1
         self.page_row_info_dict = defaultdict(set)
+        self.no_address_number_counter = []
 
-    @staticmethod
-    def extract_right_col_price_from_feed_item(feed_item):
+    def extract_right_col_price_from_feed_item(self, feed_item):
 
         right_col_div_list = feed_item.find_all('div', {"class": "right_col"})
         assert len(right_col_div_list) == 1
@@ -68,6 +68,7 @@ class Yad2page:
             return clean_address
         else:
             logger.warning('address={} doesnt have number'.format(clean_address))
+            self.no_address_number_counter.append(clean_address)
             return None
 
     @staticmethod
@@ -232,6 +233,11 @@ def insert_rows_info_page_to_sqlite(yad2):
         print('inserting the following complete_work_info dict:{}'.format(complete_row_info))
         gush, helka = mapi.execute(complete_row_info.address)
         print('gush={} , helka={}'.format(gush, helka))
+
+        if gush == 1 and helka == 1:
+            # Todo another shot in misim
+            pass
+
         sqlite.insert(complete_row_info, gush, helka)
 
 

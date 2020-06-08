@@ -1,5 +1,5 @@
 from Yad2.yad2 import RowInfo
-from sqlite import CityRecordsSqlite
+from db.sqlite import CityRecordsSqlite
 
 row_info = {'ארלוזורוב 3', '3.5', '2', '110 ', '1090000'}
 

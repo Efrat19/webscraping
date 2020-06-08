@@ -111,7 +111,7 @@ class Mapi:
             print('gush={}, helka={}'.format(gush, helka))
             return gush, helka
         except Exception as e:
-            logger.warning('could  NOT find gush,helka for address={}'.format(address + ' ' + self.hebrew_city))
+            logger.warning('could NOT find gush,helka for address={}'.format(address + ' ' + self.hebrew_city))
             return 1, 1
 
 # mapi = Mapi('חיפה')
