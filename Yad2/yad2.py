@@ -7,15 +7,17 @@ from urllib.request import urlopen
 
 from bs4 import BeautifulSoup as soup
 
-from Yad2.helper import hasNumbers
+from Yad2.helper import hasNumbers, parse_address_by_street_num
 from db.sqlite import CityRecordsSqlite
 from detect_tabu.mapi import Mapi
+from detect_tabu.misim_gush_helka import TabuMissim
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
 sqlite = CityRecordsSqlite('haifa', path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
+tabu_missim = TabuMissim('חיפה')
 staring_page = 1
 
 class WebScrapper:
@@ -42,8 +44,8 @@ class WebScrapper:
 
 
 class Yad2page:
-    HAIFA = '4000'
-    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=1'  # starting from 1
+    HAIFA_YAD2_CODE = '4000'
+    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=5'  # starting from 1
 
     def __init__(self, city):
         self.current_page_url = self.base_url.format(city)
@@ -51,6 +53,7 @@ class Yad2page:
         self.page_num = 1
         self.page_row_info_dict = defaultdict(set)
         self.no_address_number_counter = []
+        self.mapi = Mapi('חיפה')
 
     def extract_right_col_price_from_feed_item(self, feed_item):
 
@@ -161,6 +164,32 @@ class Yad2page:
         next_page_suffix = href_attr
         return YAD2_URL_PREFIX + next_page_suffix
 
+    def insert_rows_info_page_to_sqlite(self):
+
+        row_info_list = self.page_row_info_dict[self.page_num]
+        print("working on pag_num={}".format(self.page_num))
+
+        # using filter function
+        rows_info_with_missing_data = set(filter(lambda row_info: None in row_info.__dict__.values(), row_info_list))
+        print('out of total of {}, {} had missing data '.format(len(row_info_list), len(rows_info_with_missing_data)))
+        for row_info_with_missing_data in rows_info_with_missing_data:
+            logger.info(row_info_with_missing_data)
+
+        rows_info_with_all_needed_data = row_info_list - rows_info_with_missing_data
+        print('len(rows_info_with_all_needed_data)={}'.format(len(rows_info_with_all_needed_data)))
+
+        for complete_row_info in rows_info_with_all_needed_data:
+            print('inserting the following complete_work_info dict:{}'.format(complete_row_info))
+            gush, helka = self.mapi.execute(complete_row_info.address)
+            print('gush={} , helka={}'.format(gush, helka))
+
+            if gush == 1 and helka == 1:
+                print('going to misim instead of mapi')
+                street, num = parse_address_by_street_num(complete_row_info.address)
+                gush, helka = tabu_missim.execute(street, num)
+
+            sqlite.insert(complete_row_info, gush, helka)
+
 
 class RowInfo:
 
@@ -215,50 +244,21 @@ class RowInfo:
         self._price = price
 
 
-def insert_rows_info_page_to_sqlite(yad2):
-    mapi = Mapi('חיפה')
-    row_info_list = yad2.page_row_info_dict[yad2.page_num]
-    print("working on pag_num={}".format(yad2.page_num))
-
-    # using filter function
-    rows_info_with_missing_data = set(filter(lambda row_info: None in row_info.__dict__.values(), row_info_list))
-    print('out of total of {}, {} had missing data '.format(len(row_info_list), len(rows_info_with_missing_data)))
-    for row_info_with_missing_data in rows_info_with_missing_data:
-        logger.info(row_info_with_missing_data)
-
-    rows_info_with_all_needed_data = row_info_list - rows_info_with_missing_data
-    print('len(rows_info_with_all_needed_data)={}'.format(len(rows_info_with_all_needed_data)))
-
-    for complete_row_info in rows_info_with_all_needed_data:
-        print('inserting the following complete_work_info dict:{}'.format(complete_row_info))
-        gush, helka = mapi.execute(complete_row_info.address)
-        print('gush={} , helka={}'.format(gush, helka))
-
-        if gush == 1 and helka == 1:
-            # Todo another shot in misim
-            pass
-
-        sqlite.insert(complete_row_info, gush, helka)
-
-
 def main():
-    yad2 = Yad2page(Yad2page.HAIFA)
+    yad2 = Yad2page(Yad2page.HAIFA_YAD2_CODE)
     print("yad2.current_page_url={}".format(yad2.current_page_url))
 
     yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
-    insert_rows_info_page_to_sqlite(yad2)
+    yad2.insert_rows_info_page_to_sqlite()
 
     while yad2.does_have_next_page(yad2.scrapper.page_soup):
         yad2.sets_for_next_page()
         yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
-        insert_rows_info_page_to_sqlite(yad2)
+        yad2.insert_rows_info_page_to_sqlite()
 
-    # print(v.__dict__ for v in yad2.page_row_info_dict.values())
-    # yad2 = WebScrapper(yad2.current_page_url)
-    # get_yad2_next_page(yad2.page_soup)
-    # next_page_url = get_yad2_next_page(yad2.page_soup)
-    # yad2.set_new_url_and_page_soup(next_page_url)
-
+    # Todo: 1. What should I do, when we have more than one TABU/GUSh
+    # שדרות ג'יימס דה רוטשילד 10 חיפה
+    # Todo: 2. Make Missim website, parse ready
 
 if __name__ == '__main__':
     main()

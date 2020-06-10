@@ -573,3 +573,417 @@ JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 579: NS_BASE
 JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 579: NS_BASE_STREAM_CLOSED: Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]
 JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 579: NS_BASE_STREAM_CLOSED: Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]
 1591645586092	Marionette	INFO	Stopped listening on port 59361
+1591687465046	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileRPaib9"
+1591687466355	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687466661	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687466661	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687466661	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687466661	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687469270	Marionette	INFO	Listening on port 53911
+1591687469281	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591687473030	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileRJVMzm"
+1591687473497	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687473721	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687473721	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687473721	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687473722	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687475563	Marionette	INFO	Listening on port 53999
+1591687475623	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591687485095	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileXS48T2"
+1591687485487	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687485701	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687485701	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687485701	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687485701	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687487638	Marionette	INFO	Listening on port 54068
+1591687487686	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591687522006	Marionette	INFO	Stopped listening on port 54068
+1591687524194	Marionette	INFO	Stopped listening on port 53911
+1591687643236	Marionette	INFO	Stopped listening on port 53999
+1591687654849	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofilenFKUww"
+1591687655335	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687655561	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687655562	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687655562	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687655562	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687657409	Marionette	INFO	Listening on port 54203
+1591687657434	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591687660955	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileCOM1W6"
+1591687661343	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687661586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687661586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687661586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687661586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687663384	Marionette	INFO	Listening on port 54270
+1591687663441	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591687671949	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileb5MREg"
+1591687672541	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687672785	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687672785	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687672785	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687672785	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687674560	Marionette	INFO	Listening on port 54337
+1591687674645	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591687700567	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileGTLiiG"
+1591687701045	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687701288	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687701288	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687701288	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687701288	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687703011	Marionette	INFO	Listening on port 54444
+1591687703055	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591687789600	Marionette	INFO	Stopped listening on port 54444
+1591687790739	Marionette	INFO	Stopped listening on port 54337
+1591687796909	Marionette	INFO	Stopped listening on port 54270
+1591687798643	Marionette	INFO	Stopped listening on port 54203
+1591687803536	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile3jKSpE"
+1591687803944	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687804171	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687804171	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687804171	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687804171	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687805971	Marionette	INFO	Listening on port 54553
+1591687806017	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591687814640	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileiM7PK3"
+1591687815015	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687815231	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687815231	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687815231	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687815232	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687817021	Marionette	INFO	Listening on port 54619
+1591687817037	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591687843639	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileQojgRu"
+1591687844072	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687844285	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687844285	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687844285	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687844285	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687846035	Marionette	INFO	Listening on port 54717
+1591687846112	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591687888019	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileeOvr9F"
+1591687888503	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591687888744	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591687888744	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591687888744	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591687888744	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591687890619	Marionette	INFO	Listening on port 54854
+1591687890708	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591687898963	Marionette	INFO	Stopped listening on port 54619
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591687954980	Marionette	INFO	Stopped listening on port 54553
+1591687956864	Marionette	INFO	Stopped listening on port 54854
+1591687958589	Marionette	INFO	Stopped listening on port 54717
+1591688144591	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofilegu6PvR"
+1591688145048	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688145287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688145287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688145287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688145287	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688147129	Marionette	INFO	Listening on port 55034
+1591688147177	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591688157168	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileUG0L15"
+1591688157557	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688157780	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688157780	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688157780	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688157780	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688159530	Marionette	INFO	Listening on port 55101
+1591688159548	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591688210774	Marionette	INFO	Stopped listening on port 55101
+1591688212619	Marionette	INFO	Stopped listening on port 55034
+1591688217963	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileuN9B7e"
+1591688218371	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688218592	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688218592	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688218592	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688218592	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688220388	Marionette	INFO	Listening on port 55212
+1591688220453	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591688229601	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileD9G1tl"
+1591688230024	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688230241	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688230241	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688230241	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688230241	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688232004	Marionette	INFO	Listening on port 55279
+1591688232085	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+SourceActor threw an exception: [Exception... "Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]"  nsresult: "0x80470002 (NS_BASE_STREAM_CLOSED)"  location: "JS frame :: resource://devtools/shared/DevToolsUtils.js :: onResponse :: line 579"  data: no]
+Stack: onResponse@resource://devtools/shared/DevToolsUtils.js:579:34
+onStopRequest@resource://gre/modules/NetUtil.jsm:128:18
+Line: 579, column: 0
+console.error: ({})
+JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 579: NS_BASE_STREAM_CLOSED: Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]
+SourceActor threw an exception: [Exception... "Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]"  nsresult: "0x80470002 (NS_BASE_STREAM_CLOSED)"  location: "JS frame :: resource://devtools/shared/DevToolsUtils.js :: onResponse :: line 579"  data: no]
+Stack: onResponse@resource://devtools/shared/DevToolsUtils.js:579:34
+onStopRequest@resource://gre/modules/NetUtil.jsm:128:18
+Line: 579, column: 0
+console.error: ({})
+JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 579: NS_BASE_STREAM_CLOSED: Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]
+SourceActor threw an exception: [Exception... "Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]"  nsresult: "0x80470002 (NS_BASE_STREAM_CLOSED)"  location: "JS frame :: resource://devtools/shared/DevToolsUtils.js :: onResponse :: line 579"  data: no]
+Stack: onResponse@resource://devtools/shared/DevToolsUtils.js:579:34
+onStopRequest@resource://gre/modules/NetUtil.jsm:128:18
+Line: 579, column: 0
+console.error: ({})
+JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 579: NS_BASE_STREAM_CLOSED: Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]
+1591688538066	Marionette	INFO	Stopped listening on port 55279
+1591688556264	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileL1mXl4"
+1591688556743	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688556963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688556963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688556963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688556963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688558786	Marionette	INFO	Listening on port 55443
+1591688558853	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591688568154	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileDKfQC1"
+1591688568541	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688568758	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688568758	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688568759	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688568759	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688570578	Marionette	INFO	Listening on port 55511
+1591688570634	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591688629213	Marionette	INFO	Stopped listening on port 55443
+1591688632294	Marionette	INFO	Stopped listening on port 55511
+1591688634189	Marionette	INFO	Stopped listening on port 55212
+1591688639690	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileCh8xaI"
+1591688640133	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688640377	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688640377	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688640377	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688640377	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688642187	Marionette	INFO	Listening on port 55610
+1591688642281	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591688651633	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile9v5hCJ"
+1591688652021	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688652232	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688652232	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688652232	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688652232	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688654069	Marionette	INFO	Listening on port 55680
+1591688654111	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591688782800	Marionette	INFO	Stopped listening on port 55610
+1591688785865	Marionette	INFO	Stopped listening on port 55680
+1591688794751	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileaVdnEr"
+1591688795161	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688795372	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688795373	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688795373	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688795373	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688797271	Marionette	INFO	Listening on port 55807
+1591688797329	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591688806476	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileNXtR17"
+1591688806859	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591688807079	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591688807080	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591688807080	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591688807080	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591688808901	Marionette	INFO	Listening on port 55875
+1591688808953	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591688885761	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+TimedPromise/<@chrome://marionette/content/sync.js:245:13
+TimedPromise@chrome://marionette/content/sync.js:230:10
+interaction.flushEventLoop@chrome://marionette/content/interaction.js:416:10
+webdriverClickElement@chrome://marionette/content/interaction.js:182:31
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+1591718183681	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile71XwRu"
+1591718184917	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591718185145	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591718185145	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591718185145	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591718185145	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591718187646	Marionette	INFO	Listening on port 58919
+1591718187708	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591718196787	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofilebsrdMl"
+1591718197219	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591718197462	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591718197462	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591718197462	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591718197462	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591718199269	Marionette	INFO	Listening on port 59000
+1591718199285	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591720673160	Marionette	INFO	Stopped listening on port 59000
+1591726080270	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofilePlzqOQ"
+1591726081205	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591726081425	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591726081425	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591726081425	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591726081425	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591726083674	Marionette	INFO	Listening on port 60708
+1591726083758	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591726097470	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile25ASfe"
+1591726097986	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591726098208	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591726098208	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591726098208	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591726098208	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591726100125	Marionette	INFO	Listening on port 60789
+1591726100139	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591771322581	Marionette	INFO	Stopped listening on port 60708
+1591771324342	Marionette	INFO	Stopped listening on port 60789
+1591771326030	Marionette	INFO	Stopped listening on port 58919
+1591787985182	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofilemqgiEQ"
+1591787986522	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591787986800	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591787986801	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591787986801	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591787986801	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591787989290	Marionette	INFO	Listening on port 64666
+1591787989384	Marionette	WARN	TLS certificate errors will be ignored for this session
+_RegisterApplication(), FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL.
+1591788203395	Marionette	INFO	Stopped listening on port 64666
+1591788319218	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile8Ce6I9"
+1591788319706	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591788319949	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591788319949	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591788319949	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591788319950	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591788321870	Marionette	INFO	Listening on port 49835
+1591788321880	Marionette	WARN	TLS certificate errors will be ignored for this session
+_RegisterApplication(), FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL.
+1591788333027	Marionette	INFO	Stopped listening on port 49835
+1591789771156	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile1Nt64H"
+1591789771658	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591789771871	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591789771871	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591789771872	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591789771872	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591789773810	Marionette	INFO	Listening on port 55896
+1591789773828	Marionette	WARN	TLS certificate errors will be ignored for this session
+_RegisterApplication(), FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL.
+1591790270587	Marionette	INFO	Stopped listening on port 55896
+1591791089380	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileGJ8vY6"
+1591791090232	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591791090449	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591791090449	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591791090449	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591791090449	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591791092515	Marionette	INFO	Listening on port 61490
+1591791092541	Marionette	WARN	TLS certificate errors will be ignored for this session
+_RegisterApplication(), FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL.
+1591791513654	Marionette	INFO	Stopped listening on port 61490
+1591791585611	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileG46w42"
+1591791586070	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591791586266	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591791586266	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591791586266	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591791586266	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591791588037	Marionette	INFO	Listening on port 63628
+1591791588084	Marionette	WARN	TLS certificate errors will be ignored for this session
+_RegisterApplication(), FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL.
+1591791773197	Marionette	INFO	Stopped listening on port 63628
+1591803592099	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile7Wgpcx"
+1591803592497	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591803592712	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591803592712	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591803592712	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591803592712	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591803594365	Marionette	INFO	Listening on port 53233
+1591803594459	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591803605006	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofilex84DhP"
+1591803605374	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591803605586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591803605586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591803605586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591803605586	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591803607394	Marionette	INFO	Listening on port 53346
+1591803607464	Marionette	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+1591803744737	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileHLE9rW"
+1591803745142	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591803745353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591803745353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591803745353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591803745353	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591803747057	Marionette	INFO	Listening on port 54027
+1591803747087	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591803841393	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileXqpj0k"
+1591803842243	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591803842458	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591803842458	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591803842458	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591803842458	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591803844029	Marionette	INFO	Listening on port 54506
+1591803844067	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591803882680	Marionette	INFO	Stopped listening on port 54506
+1591803885050	Marionette	INFO	Stopped listening on port 54027
+1591803888325	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofilew35LBb"
+1591803888771	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591803888986	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591803888986	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591803888986	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591803888986	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591803890980	Marionette	INFO	Listening on port 54823
+1591803891004	Marionette	WARN	TLS certificate errors will be ignored for this session
+1591803900639	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileKTtISl"
+1591803901010	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1591803901235	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1591803901235	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1591803901235	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1591803901235	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1591803902871	Marionette	INFO	Listening on port 54939
+1591803902897	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+JavaScript error: https://www.mapi.gov.il/Style%20Library/Mapi/Scripts/Common.js, line 252: TypeError: response.data is null
+1591804228492	Marionette	INFO	Stopped listening on port 54823
+1591804239813	Marionette	INFO	Stopped listening on port 54939
