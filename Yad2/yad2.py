@@ -45,7 +45,7 @@ class WebScrapper:
 
 class Yad2page:
     HAIFA_YAD2_CODE = '4000'
-    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=5'  # starting from 1
+    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=9'  # starting from 1
 
     def __init__(self, city):
         self.current_page_url = self.base_url.format(city)
@@ -114,7 +114,7 @@ class Yad2page:
 
         return clean_price
 
-    def extract_yellow_feed_items_for_page(self, page_soup):
+    def extract_white_yellow_and_red_feed_items_for_page(self, page_soup):
 
         feed_items_tables = page_soup.find_all("div", {"class": "feeditem table"})
         for feed_item in feed_items_tables:
@@ -154,6 +154,11 @@ class Yad2page:
 
     def get_yad2_next_page_url(self, page_soup):
         next_page_text_list = page_soup.find_all('span', {'class': 'navigation-button-text next-text'})
+        if next_page_text_list == []:
+            # handle captcha
+            page_soup.find_all('img', {'src': 'https://captcha-assets.yad2.co.il/images/robot.svg'})
+            logger.error("got Captcha, big Problem!")
+
         assert len(next_page_text_list) == 1
         next_page_text = next_page_text_list[0]
         assert next_page_text.get_text() == 'הבא'
@@ -169,7 +174,6 @@ class Yad2page:
         row_info_list = self.page_row_info_dict[self.page_num]
         print("working on pag_num={}".format(self.page_num))
 
-        # using filter function
         rows_info_with_missing_data = set(filter(lambda row_info: None in row_info.__dict__.values(), row_info_list))
         print('out of total of {}, {} had missing data '.format(len(row_info_list), len(rows_info_with_missing_data)))
         for row_info_with_missing_data in rows_info_with_missing_data:
@@ -248,12 +252,12 @@ def main():
     yad2 = Yad2page(Yad2page.HAIFA_YAD2_CODE)
     print("yad2.current_page_url={}".format(yad2.current_page_url))
 
-    yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+    yad2.extract_white_yellow_and_red_feed_items_for_page(yad2.scrapper.page_soup)
     yad2.insert_rows_info_page_to_sqlite()
 
     while yad2.does_have_next_page(yad2.scrapper.page_soup):
         yad2.sets_for_next_page()
-        yad2.extract_yellow_feed_items_for_page(yad2.scrapper.page_soup)
+        yad2.extract_white_yellow_and_red_feed_items_for_page(yad2.scrapper.page_soup)
         yad2.insert_rows_info_page_to_sqlite()
 
     # Todo: 1. What should I do, when we have more than one TABU/GUSh

@@ -28,6 +28,7 @@ class CityRecordsSqlite(object):
                                     'updated_at datetime NOT NULL, ' \
                                     'gush TEXT NULL, ' \
                                     'helka TEXT NULL , ' \
+                                    'compare_average FLOAT NULL , ' \
                                     ' UNIQUE (address, rooms, floor_num, size, price));' \
             .format(self.table_name)
 

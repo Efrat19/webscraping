@@ -14,3 +14,14 @@ url = 'https://www.misim.gov.il/svinfonadlan2010/InfoNadlanPerutWithMap.aspx?Pro
 hebrew_city = 'חיפה'
 driver = webdriver.Firefox()
 driver.get(url)
+
+Date_of_sell = None
+price = None
+size = None
+rooms_num = None
+part_that_sold = None
+year_that_was_built = None
+
+Date_of_sell = None
+Date_of_sell = None
+Date_of_sell = None

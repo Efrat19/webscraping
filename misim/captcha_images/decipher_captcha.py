@@ -44,7 +44,10 @@ def extract_captcha_from_processed_img(captcha_img_path):
     end = time.time()
     print("took {} seconds for solving captcha".format(end - start))
 
-    return image_text
+    image_text_with_no_spaces = image_text.replace(' ', '')
+    print("woooo, found captcha:'{}'".format(image_text_with_no_spaces))
+
+    return image_text_with_no_spaces
 
 
 # main method
