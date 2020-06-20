@@ -1,11 +1,14 @@
 import logging
 import os
 import re
+import time
 from collections import defaultdict
+from random import randint
 from urllib.error import HTTPError
 from urllib.request import urlopen
 
 from bs4 import BeautifulSoup as soup
+from retry import retry
 
 from Yad2.helper import hasNumbers, parse_address_by_street_num
 from db.sqlite import CityRecordsSqlite
@@ -17,8 +20,11 @@ logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
 sqlite = CityRecordsSqlite('haifa', path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
-tabu_missim = TabuMissim('חיפה')
-staring_page = 1
+CITY_CHOSEN = 'חיפה'
+tabu_missim = TabuMissim(CITY_CHOSEN)
+STARTING_PAGE = 61
+HOUR = 60 * 60 * 60
+HALF_HOUR = 30 * 60
 
 class WebScrapper:
 
@@ -45,15 +51,15 @@ class WebScrapper:
 
 class Yad2page:
     HAIFA_YAD2_CODE = '4000'
-    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page=9'  # starting from 1
+    base_url = 'https://www.yad2.co.il/realestate/forsale?city={}&page={}'  # starting from 1
 
     def __init__(self, city):
-        self.current_page_url = self.base_url.format(city)
+        self.current_page_url = self.base_url.format(city, STARTING_PAGE)
         self.scrapper = WebScrapper(self.current_page_url)
         self.page_num = 1
         self.page_row_info_dict = defaultdict(set)
         self.no_address_number_counter = []
-        self.mapi = Mapi('חיפה')
+        self.mapi = Mapi(CITY_CHOSEN)
 
     def extract_right_col_price_from_feed_item(self, feed_item):
 
@@ -88,7 +94,6 @@ class Yad2page:
             floor_num = '0 '
 
         element_list = [rooms_num, square_meter]
-        print(element_list)
         for i in range(len(element_list)):
             if not hasNumbers(element_list[i]):
                 logger.warning('element[{}]={} is not valid'.format(i, element_list[i]))
@@ -152,12 +157,14 @@ class Yad2page:
                 return False
         return True
 
+    @retry(tries=-1, delay=HALF_HOUR, max_delay=HOUR, backoff=1)
     def get_yad2_next_page_url(self, page_soup):
         next_page_text_list = page_soup.find_all('span', {'class': 'navigation-button-text next-text'})
         if next_page_text_list == []:
             # handle captcha
             page_soup.find_all('img', {'src': 'https://captcha-assets.yad2.co.il/images/robot.svg'})
-            logger.error("got Captcha, big Problem!")
+            logger.error("\n\n got CAPTCHA, big Problem! \n\n")
+            raise Exception("got CAPTCHA")
 
         assert len(next_page_text_list) == 1
         next_page_text = next_page_text_list[0]
@@ -172,7 +179,8 @@ class Yad2page:
     def insert_rows_info_page_to_sqlite(self):
 
         row_info_list = self.page_row_info_dict[self.page_num]
-        print("working on pag_num={}".format(self.page_num))
+        print(
+            f"working on pag_num={self.page_num} (while started in page {STARTING_PAGE} so actually: {self.page_num + STARTING_PAGE})")
 
         rows_info_with_missing_data = set(filter(lambda row_info: None in row_info.__dict__.values(), row_info_list))
         print('out of total of {}, {} had missing data '.format(len(row_info_list), len(rows_info_with_missing_data)))
@@ -256,13 +264,24 @@ def main():
     yad2.insert_rows_info_page_to_sqlite()
 
     while yad2.does_have_next_page(yad2.scrapper.page_soup):
+        start = time.time()
+        sleep_time = randint(1, 160)
+        print("go sleeping for {} sec".format(sleep_time))
+        time.sleep(sleep_time)
+
         yad2.sets_for_next_page()
         yad2.extract_white_yellow_and_red_feed_items_for_page(yad2.scrapper.page_soup)
         yad2.insert_rows_info_page_to_sqlite()
 
+        end = time.time()
+        print("for page {} took {} to parse".format(yad2.page_num + STARTING_PAGE, end - start))
+
+
     # Todo: 1. What should I do, when we have more than one TABU/GUSh
-    # שדרות ג'יימס דה רוטשילד 10 חיפה
-    # Todo: 2. Make Missim website, parse ready
+    # Todo: 2. handle when the screen is going to sleep
+    # Todo: 3. improve while loop
+    # use proxyHandler or selenium
+    # חיפה יפה נוף 111
 
 if __name__ == '__main__':
     main()

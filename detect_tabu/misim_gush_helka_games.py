@@ -40,7 +40,7 @@ driver = webdriver.Firefox()
 driver.get(TabuMissim.url)
 
 city = 'חיפה'
-street = 'קרן היסוד'
+street = 'יפה נוף'
 
 # find_search_button
 search_button = driver.find_element_by_id('ContentUsersPage_btnSearch1')
@@ -64,7 +64,7 @@ street_text_box.send_keys(Keys.TAB)
 # number
 street_number_text_box = driver.find_element_by_id('txtBayta')
 assert street_number_text_box.get_attribute('maxlength').isdigit()
-street_number_text_box.send_keys(10)
+street_number_text_box.send_keys(111)
 
 search_button.click()
 

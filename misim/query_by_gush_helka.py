@@ -6,6 +6,7 @@ from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
+from misim.analyze_missim_results import AnalyzeDealsHistoryPage
 from misim.captcha_images.decipher_captcha import extract_captcha_from_processed_img
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
@@ -26,6 +27,7 @@ class MissimDetails:
 
     def __init__(self, hebrew_city):
         self.hebrew_city = hebrew_city
+        self.analyze_deal_history = AnalyzeDealsHistoryPage()
 
         self.driver = webdriver.Firefox()
         self.driver.set_window_position(0, 0)
@@ -146,6 +148,8 @@ class MissimDetails:
         search_button.click()
 
         self.check_alarms_from_click_search(end_gush, end_helka, start_gush, start_helka)
+        self.analyze_deal_history.extract_results(self.driver)
+
 
 
 m = MissimDetails('חיפה')

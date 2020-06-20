@@ -53,15 +53,13 @@ class Mapi:
         self.driver.get(Mapi.mapi_url)
 
     def fill_address(self, address):
-        # Todo: make sure the address is empty
         address = address + ' ' + self.hebrew_city
         inputbox = self.driver.find_element_by_id('AddressInput')
         logger.debug(inputbox.get_attribute('value'))  # get the typed text
         inputbox.clear()
-        displayed = inputbox.is_displayed()
-        enabled = inputbox.is_enabled()
-        print(displayed, enabled)
-        print(inputbox)
+        # displayed = inputbox.is_displayed()
+        # enabled = inputbox.is_enabled()
+
         try:
             inputbox.send_keys(address)
         except:
