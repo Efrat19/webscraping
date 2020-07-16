@@ -2,7 +2,7 @@ import logging
 import os
 from time import sleep
 
-from retrying import retry
+from retry import retry
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -40,7 +40,7 @@ class TabuMissim:
         sleep(1)
         city_text_box.send_keys(Keys.TAB)
 
-    @retry(wait_exponential_multiplier=5000, wait_exponential_max=10000, stop_max_delay=40000)
+    @retry(tries=-1, delay=20, max_delay=90, backoff=1)
     def fill_street_in_text_box_and_tab(self, street):
         sleep(1)
         street_text_box = self.driver.find_element_by_id('ContentUsersPage_rehov')
@@ -99,20 +99,22 @@ class TabuMissim:
             else:
                 raise
 
-    @retry(wait_exponential_multiplier=5000, wait_exponential_max=10000, stop_max_delay=40000)
+    @retry(tries=-1, delay=20, max_delay=90, backoff=1)
     def execute(self, street, num):
-        search_button = self.find_search_button()
-        self.fill_city_in_text_box_and_tab()
-        self.fill_street_in_text_box_and_tab(street)
-        self.fill_number_text_box(num)
+        try:
+            search_button = self.find_search_button()
+            self.fill_city_in_text_box_and_tab()
+            self.fill_street_in_text_box_and_tab(street)
+            self.fill_number_text_box(num)
 
-        search_button.click()
-        sleep(0.5)
+            search_button.click()
+            sleep(0.5)
 
-        gush, helka = self.getting_gush_helka(street, num)
-        self.driver.back()
-        print(gush, helka)
-
+            gush, helka = self.getting_gush_helka(street, num)
+            self.driver.back()
+        except Exception as e:
+            self.driver.refresh()
+            raise e
         return gush, helka
 
 # tabu_missim = TabuMissim('חיפה')

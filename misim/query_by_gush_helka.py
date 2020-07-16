@@ -21,6 +21,8 @@ WINDOW_LENGTH = 900
 ORIGINAL_CAPTCHA_IMG_PATH = '/Users/idan.narotzki/PycharmProjects/webscraping/misim/captcha_images/screenshot_original.png'
 PROCESSED_CAPTCHA_PATH = '/Users/idan.narotzki/PycharmProjects/webscraping/misim/captcha_images/screenshot_processed.png'
 
+HISTORY_PERIOD = 12
+
 
 class MissimDetails:
     url = 'https://www.misim.gov.il/svinfonadlan2010/startpageNadlanNewDesign.aspx?ProcessKey=3e778b47-d2ae-4546-a992-fa50cb00663b'
@@ -138,7 +140,7 @@ class MissimDetails:
         self.download_captcha_img(ORIGINAL_CAPTCHA_IMG_PATH, PROCESSED_CAPTCHA_PATH)
 
         self.fill_gush_helka(start_gush, end_gush, start_helka, end_helka)
-        self.select_deal_metadata(12)
+        self.select_deal_metadata(HISTORY_PERIOD)  #
 
         captcha = extract_captcha_from_processed_img(PROCESSED_CAPTCHA_PATH)
         self.fill_captcha_text_box(captcha)

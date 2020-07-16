@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup as soup
 from retry import retry
 
 from Yad2.helper import hasNumbers, parse_address_by_street_num
-from db.sqlite import CityRecordsSqlite
+from db.sqlite import ForSalePropertiesSqlite
 from detect_tabu.mapi import Mapi
 from detect_tabu.misim_gush_helka import TabuMissim
 
@@ -19,12 +19,12 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
-sqlite = CityRecordsSqlite('haifa', path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
+sqlite = ForSalePropertiesSqlite('haifa', path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
 CITY_CHOSEN = 'חיפה'
 tabu_missim = TabuMissim(CITY_CHOSEN)
-STARTING_PAGE = 61
+STARTING_PAGE = 117
 HOUR = 60 * 60 * 60
-HALF_HOUR = 30 * 60
+THREE_HOURS = 3 * 60 * 60
 
 class WebScrapper:
 
@@ -134,7 +134,7 @@ class Yad2page:
 
             row_info = RowInfo(address, rooms_num, floor_num, square_meter, price)
 
-            print("adding row_info={} to self.page_row_info_dict".format(row_info.__dict__))
+            logger.info("adding row_info={} to self.page_row_info_dict".format(row_info.__dict__))
             self.page_row_info_dict[self.page_num].add(row_info)
 
         print("#feed_item_table={}".format(len(feed_items_tables)))
@@ -157,7 +157,7 @@ class Yad2page:
                 return False
         return True
 
-    @retry(tries=-1, delay=HALF_HOUR, max_delay=HOUR, backoff=1)
+    @retry(tries=-1, delay=HOUR, max_delay=THREE_HOURS, backoff=1)
     def get_yad2_next_page_url(self, page_soup):
         next_page_text_list = page_soup.find_all('span', {'class': 'navigation-button-text next-text'})
         if next_page_text_list == []:
@@ -279,9 +279,29 @@ def main():
 
     # Todo: 1. What should I do, when we have more than one TABU/GUSh
     # Todo: 2. handle when the screen is going to sleep
-    # Todo: 3. improve while loop
+    # Todo: 3. improve logging to be into file
+    # Todo: 4. improve while loop
+    # Todo: 5. save list of errors address
     # use proxyHandler or selenium
     # חיפה יפה נוף 111
+    #  ז'אן ז'ורס 32
+
+    # כיכר היינריך היינה 15
+    # משה גוט לוין 30
+    # יצחק יציב 60
+    # יציאת אירופה תש"ז 1
+    # אל סלט 4
+    #
+
 
 if __name__ == '__main__':
     main()
+
+"""
+selenium.common.exceptions.StaleElementReferenceException: Message: 
+The element reference of <input id="ContentUsersPage_btnSearch1" class="btn-primary btn" name="ctl00$ContentUsersPage$btnSearch1" type="submit"> is stale; 
+either the element is no longer attached to the DOM, it is not in the current frame context, or the document has been refreshed
+"""
+
+"https://stackoverflow.com/questions/40029549/how-to-avoid-staleelementreferenceexception-in-selenium-python"
+"https://stackoverflow.com/questions/47042358/staleelementreferenceexception-in-python/53001503"

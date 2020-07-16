@@ -1,0 +1,11 @@
+1593863771213	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofileLNPiHN"
+1593863774102	Marionette	INFO	Listening on port 60102
+1593863774207	Marionette	WARN	TLS certificate errors will be ignored for this session
+_RegisterApplication(), FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL.
+1593863872948	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/0t/lkc7_sfs7s74yqb8qk_2v3jc0000gn/T/rust_mozprofile6ml02g"
+1593863875268	Marionette	INFO	Listening on port 60183
+1593863875334	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: services.settings: 
+  main/cfr Signature failed  TypeError: NetworkError when attempting to fetch resource.
+1593863878062	Marionette	INFO	Stopped listening on port 60183
+1593863881083	Marionette	INFO	Stopped listening on port 60102

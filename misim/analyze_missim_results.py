@@ -51,6 +51,8 @@ class AnalyzeDealsHistoryPage:
             print(deal_records)
             self.deals_record_list.append(deal_records)
 
+        # Todo: add to DB that will be created
+
     def extract_num_of_table_rows(self, driver):
         rows1_type = driver.find_elements_by_class_name('row1')
         boxB_type = driver.find_elements_by_class_name('BoxB')
@@ -124,37 +126,63 @@ class DealsRecords:
         return str(self.__dict__)
 
 
-driver = webdriver.Firefox()
-driver.get(url)
-driver.find_elements_by_class_name('table_title')
+def extract_street_and_street_num(address_section_info):
+    street_unfiltered = None
+    street_num_unfiltered = None
+    for elm in address_section_info:
+        if 'רחוב' in elm:
+            street_unfiltered = elm
+        elif 'מספר בית' in elm:
+            street_num_unfiltered = elm
+    street = street_unfiltered.split(':')[-1].strip().rstrip()
+    street_num = street_num_unfiltered.split(':')[-1].strip().rstrip()
+    return (street, street_num)
 
-rows1_type = driver.find_elements_by_class_name('row1')
-boxB_type = driver.find_elements_by_class_name('BoxB')
-num_of_rows = len(rows1_type) + len(boxB_type)
 
-for i in range(2, 2 + num_of_rows):
-    gush_helka = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[2]').text
-    date_of_sale = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[3]').text
-    declared_value = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[4]').text
-    sale_value = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[5]').text
-    deal_type = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[6]').text
-    ground_ratio = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[7]').text
-    city = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[8]').text
-    built_year = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[9]').text
-    size = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[10]').text
-    rooms_num = driver.find_element_by_xpath(
-        f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[11]').text
+def main():
+    driver = webdriver.Firefox()
+    driver.get(url)
 
-    deal_records = DealsRecords(gush_helka, date_of_sale, declared_value, sale_value, deal_type, ground_ratio, city,
-                                built_year, size, rooms_num)
-    print(deal_records)
-    deal_records_list.append(deal_records)
+    section_info = driver.find_element_by_id('lblInfo')
+    address_section_info = section_info.text.rstrip().split('\n')[1].split(
+        '  ')  # ['ישוב: חיפה', '', '', '', ' רחוב: יפה נוף', '', '', '', ' מספר בית: 111']
+
+    city = address_section_info[0].split(':')[1].strip()
+    street, street_num = extract_street_and_street_num(address_section_info)
+
+    driver.find_elements_by_class_name('table_title')
+
+    # rows1_type = driver.find_elements_by_class_name('row1')
+    # boxB_type = driver.find_elements_by_class_name('BoxB')
+    # num_of_rows = len(rows1_type) + len(boxB_type)
+    #
+    # for i in range(2, 2 + num_of_rows):
+    #     gush_helka = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[2]').text
+    #     date_of_sale = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[3]').text
+    #     declared_value = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[4]').text
+    #     sale_value = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[5]').text
+    #     deal_type = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[6]').text
+    #     ground_ratio = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[7]').text
+    #     city = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[8]').text
+    #     built_year = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[9]').text
+    #     size = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[10]').text
+    #     rooms_num = driver.find_element_by_xpath(
+    #         f'/html/body/div[2]/form/div[5]/div[3]/div[6]/div/div/table/tbody/tr[{i}]/td[11]').text
+    #
+    #     deal_records = DealsRecords(gush_helka, date_of_sale, declared_value, sale_value, deal_type, ground_ratio, city,
+    #                                 built_year, size, rooms_num)
+    #     print(deal_records)
+    #     deal_records_list.append(deal_records)
+
+
+if __name__ == '__main__':
+    main()

@@ -3,7 +3,7 @@ import time
 from bs4 import BeautifulSoup as soup
 from retry import retry
 
-from proxy.random_proxy import Random_Proxy
+from others.proxy.random_proxy import Random_Proxy
 
 start = time.time()
 
