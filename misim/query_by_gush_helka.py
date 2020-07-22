@@ -21,10 +21,10 @@ WINDOW_LENGTH = 900
 ORIGINAL_CAPTCHA_IMG_PATH = '/Users/idan.narotzki/PycharmProjects/webscraping/misim/captcha_images/screenshot_original.png'
 PROCESSED_CAPTCHA_PATH = '/Users/idan.narotzki/PycharmProjects/webscraping/misim/captcha_images/screenshot_processed.png'
 
-HISTORY_PERIOD = 12
+HISTORY_PERIOD = 36
 
 
-class MissimDetails:
+class MissimDetailsWebPages:
     url = 'https://www.misim.gov.il/svinfonadlan2010/startpageNadlanNewDesign.aspx?ProcessKey=3e778b47-d2ae-4546-a992-fa50cb00663b'
 
     def __init__(self, hebrew_city):
@@ -38,33 +38,33 @@ class MissimDetails:
         self.driver.get(self.url)
 
     def find_search_button(self):
-        search_button = m.driver.find_element_by_id('ContentUsersPage_btnHipus')
+        search_button = self.driver.find_element_by_id('ContentUsersPage_btnHipus')
         assert search_button.get_attribute('value') == 'חיפוש'
         return search_button
 
     def fill_start_gush(self, start_gush_num):
-        started_gush = m.driver.find_element_by_id('txtmegusha')
+        started_gush = self.driver.find_element_by_id('txtmegusha')
         assert started_gush.get_attribute('maxlength').isdigit()
         started_gush.send_keys(start_gush_num)
 
     def fill_end_gush(self, end_gush_num):
-        end_gush = m.driver.find_element_by_id('txtadGush')
+        end_gush = self.driver.find_element_by_id('txtadGush')
         assert end_gush.get_attribute('maxlength').isdigit()
         end_gush.send_keys(end_gush_num)
 
     def fill_start_helka(self, start_helka_num):
-        started_helka = m.driver.find_element_by_id('txthelka')
+        started_helka = self.driver.find_element_by_id('txthelka')
         assert started_helka.get_attribute('maxlength').isdigit()
         started_helka.send_keys(start_helka_num)
 
     def fill_end_helka(self, end_helka_num):
-        end_helka = m.driver.find_element_by_id('txtadHelka')
+        end_helka = self.driver.find_element_by_id('txtadHelka')
         assert end_helka.get_attribute('maxlength').isdigit()
         end_helka.send_keys(end_helka_num)
 
     def fill_gush_helka(self, start_gush_num, end_gush_num, start_helka_num, end_helka_num):
         # radio button
-        radioElement = m.driver.find_element_by_id("rbMegush")
+        radioElement = self.driver.find_element_by_id("rbMegush")
         assert radioElement.get_attribute("type") == "radio"
         radioElement.click()
         assert radioElement.is_selected()
@@ -76,13 +76,13 @@ class MissimDetails:
 
     def select_deal_metadata(self, period_num):
         assert period_num in [3, 6, 12, 36]
-        asset_purpose_select = Select(m.driver.find_element_by_id('ContentUsersPage_DDLTypeNehes'))
+        asset_purpose_select = Select(self.driver.find_element_by_id('ContentUsersPage_DDLTypeNehes'))
         asset_purpose_select.select_by_visible_text('דירת מגורים')
 
-        select = Select(m.driver.find_element_by_id('ContentUsersPage_DDLMahutIska'))
+        select = Select(self.driver.find_element_by_id('ContentUsersPage_DDLMahutIska'))
         select.select_by_visible_text('דירה בבית קומות')
 
-        select = Select(m.driver.find_element_by_id('ContentUsersPage_DDLDateType'))
+        select = Select(self.driver.find_element_by_id('ContentUsersPage_DDLDateType'))
         select.select_by_visible_text('ב-{} החודשים האחרונים'.format(period_num))
 
     def download_captcha_img(self, path_to_download_captcha_pic, path_to_processed_captcha_pic):
@@ -114,133 +114,48 @@ class MissimDetails:
         self.driver.back()
 
     def fill_captcha_text_box(self, captcha):
-        captcha_text_box = m.driver.find_element_by_id('ContentUsersPage_RadCaptcha1_CaptchaTextBox')
+        captcha_text_box = self.driver.find_element_by_id('ContentUsersPage_RadCaptcha1_CaptchaTextBox')
         assert captcha_text_box.get_attribute('maxlength') == '4'
         captcha_text_box.send_keys(captcha)
 
-    def check_alarms_from_click_search(self, end_gush, end_helka, start_gush, start_helka):
+    def is_alarm_raise_from_click_search(self, end_gush, end_helka, start_gush, start_helka):
         try:
-            healine = m.driver.find_element_by_id('ContentUsersPage_koteretNadlan')
+            healine = self.driver.find_element_by_id('ContentUsersPage_koteretNadlan')
             if 'הצגת מידע' in healine.text:
                 print('found results successfully!')
         except Exception as e:
             try:
-                alert = m.driver.find_element_by_id('ContentUsersPage_LblAlert')
+                alert = self.driver.find_element_by_id('ContentUsersPage_LblAlert')
                 if 'לא נמצאו נתונים לחתך המבוקש' in alert.text:
                     logger.warning(
                         'Could not found data for asked gush helka {}-{}-{}-{}'.format(start_gush, end_gush,
                                                                                        start_helka,
                                                                                        end_helka))
+                    return True
                 else:
                     logger.error(alert.text)
             except Exception as e:
-                pass
+                raise e
+        return False
 
-    def execute(self, start_gush, end_gush, start_helka, end_helka):
+    def extract_deals_records_list_for_tabu(self, start_gush, end_gush, start_helka, end_helka):
+        self.execute_query_in_webpage(end_gush, end_helka, start_gush, start_helka)
+        deals_record_list_for_tabu = []
+        if not self.is_alarm_raise_from_click_search(end_gush, end_helka, start_gush, start_helka):
+            deals_record_list_for_tabu = self.analyze_deal_history.extract_results(self.driver)
+        return deals_record_list_for_tabu
+
+    def execute_query_in_webpage(self, end_gush, end_helka, start_gush, start_helka):
         self.download_captcha_img(ORIGINAL_CAPTCHA_IMG_PATH, PROCESSED_CAPTCHA_PATH)
-
         self.fill_gush_helka(start_gush, end_gush, start_helka, end_helka)
         self.select_deal_metadata(HISTORY_PERIOD)  #
-
         captcha = extract_captcha_from_processed_img(PROCESSED_CAPTCHA_PATH)
         self.fill_captcha_text_box(captcha)
         sleep(0.5)
-
         search_button = self.find_search_button()
         search_button.click()
-
-        self.check_alarms_from_click_search(end_gush, end_helka, start_gush, start_helka)
-        self.analyze_deal_history.extract_results(self.driver)
-
-
-
-m = MissimDetails('חיפה')
-m.execute(start_gush='10861', end_gush='10861', start_helka='238', end_helka='239')
-
-if False:
-
-    def download_captcha_img(driver, path_to_download_captcha_pic, path_to_processed_captcha_pic):
-        # look for captcha
-        captcha_img = driver.find_element_by_id('ContentUsersPage_RadCaptcha1_CaptchaImageUP')
-        captcha_link = captcha_img.get_attribute('src')
-        print('captcha_link={}'.format(captcha_link))
         sleep(1)
-        driver.get(captcha_link)
-        driver.save_screenshot(path_to_download_captcha_pic)
-        img = driver.find_element_by_tag_name('img')
-        print("img={}".format(img))
-        location = img.location
-        size = img.size
-        print("img.location={}, size= {}".format(location, size))
-        left = (location['x'])
-        top = (location['y'])
-        right = location['x'] + size['width']
-        bottom1 = location['y'] + size['height']
-        print("left, top, right, bottom1={}".format((left, top, right, bottom1)))
-        im = Image.open(path_to_download_captcha_pic)
-        LEFT = 1275
-        UPPER = 780
-        RIGHT = 1620
-        LOWER = 870
-        area = (LEFT, UPPER, RIGHT, LOWER)
-        im = im.crop(area)
-        im.save(path_to_processed_captcha_pic)
-        driver.back()
 
-
-    download_captcha_img(m.driver, ORIGINAL_CAPTCHA_IMG_PATH, PROCESSED_CAPTCHA_PATH)
-    captcha = extract_captcha_from_processed_img(PROCESSED_CAPTCHA_PATH)
-    print("woooo, wounf captcha!!!:{}".format(captcha))
-    captcha_with_no_spaces = captcha.replace(' ', '')
-
-    # find search button
-    search_button = m.driver.find_element_by_id('ContentUsersPage_btnHipus')
-    assert search_button.get_attribute('value') == 'חיפוש'
-
-    # radio button
-    radioElement = m.driver.find_element_by_id("rbMegush")
-    assert radioElement.get_attribute("type") == "radio"
-    radioElement.click()
-    assert radioElement.is_selected()
-
-    # gushim
-    started_gush = m.driver.find_element_by_id('txtmegusha')
-    assert started_gush.get_attribute('maxlength').isdigit()
-    started_gush.send_keys('1000')
-
-    end_gush = m.driver.find_element_by_id('txtadGush')
-    assert end_gush.get_attribute('maxlength').isdigit()
-    end_gush.send_keys('1000')
-
-    started_helka = m.driver.find_element_by_id('txthelka')
-    assert started_helka.get_attribute('maxlength').isdigit()
-    started_helka.send_keys('80')
-
-    end_helka = m.driver.find_element_by_id('txtadHelka')
-    assert end_helka.get_attribute('maxlength').isdigit()
-    end_helka.send_keys('80')
-
-    # asset metadata details
-    asset_purpose_select = Select(m.driver.find_element_by_id('ContentUsersPage_DDLTypeNehes'))
-    asset_purpose_select.select_by_visible_text('דירת מגורים')
-
-    select = Select(m.driver.find_element_by_id('ContentUsersPage_DDLMahutIska'))
-    select.select_by_visible_text('דירה בבית קומות')
-
-    select = Select(m.driver.find_element_by_id('ContentUsersPage_DDLDateType'))
-    select.select_by_visible_text('ב-6 החודשים האחרונים')
-
-    # fill captcha text
-    captcha_text_box = m.driver.find_element_by_id('ContentUsersPage_RadCaptcha1_CaptchaTextBox')
-    assert captcha_text_box.get_attribute('maxlength') == '4'
-    captcha_text_box.send_keys(captcha_with_no_spaces)
-
-    search_button.click()
-    try:
-        alert = m.driver.find_element_by_id('ContentUsersPage_LblAlert')
-        if 'לא נמצאו נתונים לחתך המבוקש' in alert.text:
-            logger.warning('Could not found data for asked gush helka {}'.format('todo update'))
-        else:
-            logger.error(alert.text)
-    except Exception as e:
-        pass
+#
+# m = MissimDetailsWebPages('חיפה')
+# m.extract_deals_records_list_for_tabu(start_gush='10861', end_gush='10861', start_helka='238', end_helka='239')

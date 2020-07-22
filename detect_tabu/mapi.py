@@ -115,4 +115,4 @@ class Mapi:
             return 1, 1
 
 # mapi = Mapi('חיפה')
-# mapi.execute('קרן היסוד 10 חיפה')
+# mapi.extract_deals_records_list_for_tabu('קרן היסוד 10 חיפה')

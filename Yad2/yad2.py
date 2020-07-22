@@ -13,15 +13,16 @@ from retry import retry
 from Yad2.helper import hasNumbers, parse_address_by_street_num
 from db.sqlite import ForSalePropertiesSqlite
 from detect_tabu.mapi import Mapi
-from detect_tabu.misim_gush_helka import TabuMissim
+from detect_tabu.misim_gush_helka import TabuMissimWebPage
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
-sqlite = ForSalePropertiesSqlite('haifa', path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
+yad2_for_sale_properties_sqlite = ForSalePropertiesSqlite('haifa',
+                                                          path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
 CITY_CHOSEN = 'חיפה'
-tabu_missim = TabuMissim(CITY_CHOSEN)
+tabu_missim_page = TabuMissimWebPage(CITY_CHOSEN)
 STARTING_PAGE = 117
 HOUR = 60 * 60 * 60
 THREE_HOURS = 3 * 60 * 60
@@ -198,9 +199,9 @@ class Yad2page:
             if gush == 1 and helka == 1:
                 print('going to misim instead of mapi')
                 street, num = parse_address_by_street_num(complete_row_info.address)
-                gush, helka = tabu_missim.execute(street, num)
+                gush, helka = tabu_missim_page.execute(street, num)
 
-            sqlite.insert(complete_row_info, gush, helka)
+            yad2_for_sale_properties_sqlite.insert(complete_row_info, gush, helka)
 
 
 class RowInfo:

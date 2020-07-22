@@ -16,12 +16,12 @@ deal_records_list = []
 class AnalyzeDealsHistoryPage:
 
     def __init__(self):
-        self.deals_record_list = []
         self.table_titles_order = [None, None, 'גוש חלקה', '*יום מכירה', '*תמורה מוצהרת בש"ח', '*שווי מכירה בש"ח',
                                    'מהות', 'חלק נמכר', 'ישוב', 'שנת בניה', 'שטח', 'חדרים']
 
     def extract_results(self, driver):
         self.validate_page_order(driver)
+        deals_record_list_for_tabu = []
         num_of_rows = self.extract_num_of_table_rows(driver)
 
         for i in range(2, 2 + num_of_rows):
@@ -48,8 +48,10 @@ class AnalyzeDealsHistoryPage:
 
             deal_records = DealsRecords(gush_helka, date_of_sale, declared_value, sale_value, deal_type, ground_ratio,
                                         city, built_year, size, rooms_num)
-            print(deal_records)
-            self.deals_record_list.append(deal_records)
+            deals_record_list_for_tabu.append(deal_records)
+            if len(deals_record_list_for_tabu) > 10:
+                print("more than 10 deal_records!!!")
+        return deals_record_list_for_tabu
 
         # Todo: add to DB that will be created
 
