@@ -4,7 +4,6 @@ import os
 import sqlite3
 import sys
 
-from db.city_records import ForSalePropertyRecord
 from misim.analyze_missim_results import DealsRecords
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
@@ -119,21 +118,39 @@ class ForSalePropertiesSqlite(object):
         finally:
             cursor.close()
 
-    def update_average(self, city_record: ForSalePropertyRecord, average: float):
+    def select_all_with_no_avg(self):
+        print('selecting all from yad2_for_sale_properties_sqlite')
+        cursor = self.sqlite_connection.cursor()
 
-        # query = "UPDATE {} SET updated_at = '{}', gush = '{}', helka = '{}' " \
-        #         "WHERE address = '{}' AND rooms = '{}' AND floor_num = '{}' AND size = '{}' AND price = '{}'" \
-        #     .format(self.table_name, datetime.datetime.now(), gush, helka, row_info.address,
-        #             row_info.rooms, row_info.floor_num, row_info.size, row_info.price)
+        select_query = f"SELECT * FROM '{self.table_name}' WHERE compare_average!=0"  # check this one
 
+        try:
+            query_result = cursor.execute(select_query)
+            rows = query_result.fetchall()
+            n = len(rows)
+            for i in range(n):
+                print('match row_num={}'.format(i))
+                row = rows[i]
+                print('address={}'.format(row['address']))
+                print('keys={}'.format(row.keys()))
+                for memeber in row:
+                    print('{}'.format(memeber))
+                    # print ('{}={}'.format(memeber, row[memeber]))
+            return rows
+        finally:
+            cursor.close()
+
+    def update_average(self, yad2_row, average: float):
+        cursor = self.sqlite_connection.cursor()
         query = f"UPDATE {self.table_name} SET updated_at = '{datetime.datetime.now()}', compare_average = '{average}' " \
-                f"WHERE gush = '{city_record.gush}' AND helka = '{city_record.helka}' " \
-                f"AND address = '{city_record.address}' " \
-                f"AND rooms = '{city_record.rooms}' AND floor_num = '{city_record.floor_num}' " \
-                f"AND size = '{city_record.size}' AND price = '{city_record.price}'"
+                f"WHERE address = '{yad2_row['address']}' " \
+                f"AND rooms = '{yad2_row['rooms']}' AND floor_num = '{yad2_row['floor_num']}' " \
+                f"AND size = '{yad2_row['size']}' AND price = '{yad2_row['price']}'"
 
-        self.sqlite_connection.cursor().execute(query)
+        cursor.execute(query)  # problem with address like ח'ורי etc
         self.sqlite_connection.commit()
+        print(f'Record updated successfully with average of {average}')
+        cursor.close()
 
     def close(self):
         print("Closing SQL connection")
@@ -179,7 +196,7 @@ class MissimPropertiesHistory(object):
 
         cursor.close()
 
-    # todo: supprt list of dealrecordsw
+    # todo: supprt list of dealrecords
     def insert(self, deal_records: DealsRecords, address: str):
         func_name = sys._getframe().f_code.co_name
         print(f' {func_name} function with DealsRecords: {deal_records}')

@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 executable_path_phantomjs = '/Users/idan.narotzki/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs'
 executable_firefox = '/Users/idan.narotzki/Downloads/firefox'
 
-url = 'https://www.misim.gov.il/svinfonadlan2010/startpageNadlanNewDesign.aspx?ProcessKey=3e778b47-d2ae-4546-a992-fa50cb00663b'
 WINDOW_WIDTH = 1440
 WINDOW_LENGTH = 900
 ORIGINAL_CAPTCHA_IMG_PATH = '/Users/idan.narotzki/PycharmProjects/webscraping/misim/captcha_images/screenshot_original.png'
@@ -97,12 +96,12 @@ class MissimDetailsWebPages:
         print("img={}".format(img))
         location = img.location
         size = img.size
-        print("img.location={}, size= {}".format(location, size))
+        logger.debug("img.location={}, size= {}".format(location, size))
         left = (location['x'])
         top = (location['y'])
         right = location['x'] + size['width']
         bottom1 = location['y'] + size['height']
-        print("left, top, right, bottom1={}".format((left, top, right, bottom1)))
+        logger.debug("left, top, right, bottom1={}".format((left, top, right, bottom1)))
         im = Image.open(path_to_download_captcha_pic)
         LEFT = 1275
         UPPER = 780
@@ -135,10 +134,12 @@ class MissimDetailsWebPages:
                 else:
                     logger.error(alert.text)
             except Exception as e:
-                raise e
+                logger.error(e)
+                return True
         return False
 
     def extract_deals_records_list_for_tabu(self, start_gush, end_gush, start_helka, end_helka):
+        # check first if that in the db
         self.execute_query_in_webpage(end_gush, end_helka, start_gush, start_helka)
         deals_record_list_for_tabu = []
         if not self.is_alarm_raise_from_click_search(end_gush, end_helka, start_gush, start_helka):

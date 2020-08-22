@@ -19,11 +19,9 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 YAD2_URL_PREFIX = 'https://www.yad2.co.il'
 
-yad2_for_sale_properties_sqlite = ForSalePropertiesSqlite('haifa',
-                                                          path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
+
 CITY_CHOSEN = 'חיפה'
-tabu_missim_page = TabuMissimWebPage(CITY_CHOSEN)
-STARTING_PAGE = 117
+STARTING_PAGE = 2
 HOUR = 60 * 60 * 60
 THREE_HOURS = 3 * 60 * 60
 
@@ -35,12 +33,11 @@ class WebScrapper:
     def get_page_soup(self, url):
         try:
             page_html = self.get_url_open(url)
-        except HTTPError as e:
-            print(e)
-        else:
             if page_html is None:
                 print("URL is not found")
             return soup(page_html, "html.parser")  # html parsing
+        except HTTPError as e:
+            print(e)  # todo: retry
 
     @staticmethod
     def get_url_open(url):
@@ -48,6 +45,10 @@ class WebScrapper:
         page_html = uClient.read()
         uClient.close()
         return page_html
+
+
+class UnExpectedRowStructureException(Exception):
+    pass
 
 
 class Yad2page:
@@ -61,15 +62,22 @@ class Yad2page:
         self.page_row_info_dict = defaultdict(set)
         self.no_address_number_counter = []
         self.mapi = Mapi(CITY_CHOSEN)
+        self.tabu_missim_page = TabuMissimWebPage(CITY_CHOSEN)
+        self.yad2_for_sale_properties_sqlite = ForSalePropertiesSqlite('haifa',
+                                                                       path='/Users/idan.narotzki/PycharmProjects/webscraping/Yad2')
 
     def extract_right_col_price_from_feed_item(self, feed_item):
-
         right_col_div_list = feed_item.find_all('div', {"class": "right_col"})
         assert len(right_col_div_list) == 1
         right_col_div = right_col_div_list[0]
         # get address
         rows = right_col_div.find_all('div', {"class": "rows"})  # print (rows)
-        assert len(rows) == 1
+        print(rows)
+        try:
+            assert len(rows) == 1
+        except Exception as e:
+            logger.error(e)
+            raise UnExpectedRowStructureException("unexpected row in yad 2 (e.g homemarket.")
         row = rows[0]
         address = row.find('span', {'class': 'title'}).get_text()
         clean_address = address.rstrip().strip()
@@ -121,11 +129,15 @@ class Yad2page:
         return clean_price
 
     def extract_white_yellow_and_red_feed_items_for_page(self, page_soup):
-
         feed_items_tables = page_soup.find_all("div", {"class": "feeditem table"})
         for feed_item in feed_items_tables:
             # right column
-            address = self.extract_right_col_price_from_feed_item(feed_item)
+            try:
+                address = self.extract_right_col_price_from_feed_item(feed_item)
+            except UnExpectedRowStructureException as e:
+                logger.warning(f'{str(e)}. setting address to None, and skipp all row')
+                address = None
+                return
 
             # center column
             rooms_num, floor_num, square_meter = self.extract_room_floor_size_from_feed_item(feed_item)
@@ -134,8 +146,8 @@ class Yad2page:
             price = self.extract_left_col_price_from_feed_item(feed_item)
 
             row_info = RowInfo(address, rooms_num, floor_num, square_meter, price)
-
             logger.info("adding row_info={} to self.page_row_info_dict".format(row_info.__dict__))
+
             self.page_row_info_dict[self.page_num].add(row_info)
 
         print("#feed_item_table={}".format(len(feed_items_tables)))
@@ -167,6 +179,11 @@ class Yad2page:
             logger.error("\n\n got CAPTCHA, big Problem! \n\n")
             raise Exception("got CAPTCHA")
 
+        next_page_suffix = self.extract_next_page_suffix(next_page_text_list)
+        return YAD2_URL_PREFIX + next_page_suffix
+
+    @staticmethod
+    def extract_next_page_suffix(next_page_text_list):
         assert len(next_page_text_list) == 1
         next_page_text = next_page_text_list[0]
         assert next_page_text.get_text() == 'הבא'
@@ -175,33 +192,39 @@ class Yad2page:
         assert len(href_attr_list) == 1
         href_attr = href_attr_list[0]
         next_page_suffix = href_attr
-        return YAD2_URL_PREFIX + next_page_suffix
+        return next_page_suffix
 
     def insert_rows_info_page_to_sqlite(self):
+        rows_info_with_all_needed_data = self.extract_rows_info_with_all_needed_data()
+        print('len(rows_info_with_all_needed_data)={}'.format(len(rows_info_with_all_needed_data)))
+        self.insert_completed_rows_info_to_sqlite(rows_info_with_all_needed_data)
 
+    def extract_rows_info_with_all_needed_data(self):
         row_info_list = self.page_row_info_dict[self.page_num]
-        print(
-            f"working on pag_num={self.page_num} (while started in page {STARTING_PAGE} so actually: {self.page_num + STARTING_PAGE})")
+        print(f"working on pag_num={self.page_num} (while started in page {STARTING_PAGE}"
+              f" so actually: {self.page_num + STARTING_PAGE})")
+        rows_info_with_missing_data = self.extract_row_with_missing_data_from_page_rows(row_info_list)
+        return row_info_list - rows_info_with_missing_data
 
+    @staticmethod
+    def extract_row_with_missing_data_from_page_rows(row_info_list):
         rows_info_with_missing_data = set(filter(lambda row_info: None in row_info.__dict__.values(), row_info_list))
         print('out of total of {}, {} had missing data '.format(len(row_info_list), len(rows_info_with_missing_data)))
         for row_info_with_missing_data in rows_info_with_missing_data:
             logger.info(row_info_with_missing_data)
+        return rows_info_with_missing_data
 
-        rows_info_with_all_needed_data = row_info_list - rows_info_with_missing_data
-        print('len(rows_info_with_all_needed_data)={}'.format(len(rows_info_with_all_needed_data)))
-
+    def insert_completed_rows_info_to_sqlite(self, rows_info_with_all_needed_data):
         for complete_row_info in rows_info_with_all_needed_data:
             print('inserting the following complete_work_info dict:{}'.format(complete_row_info))
             gush, helka = self.mapi.execute(complete_row_info.address)
             print('gush={} , helka={}'.format(gush, helka))
 
             if gush == 1 and helka == 1:
-                print('going to misim instead of mapi')
                 street, num = parse_address_by_street_num(complete_row_info.address)
-                gush, helka = tabu_missim_page.execute(street, num)
+                gush, helka = self.tabu_missim_page.execute(street, num)
 
-            yad2_for_sale_properties_sqlite.insert(complete_row_info, gush, helka)
+            self.yad2_for_sale_properties_sqlite.insert(complete_row_info, gush, helka)
 
 
 class RowInfo:
@@ -278,6 +301,7 @@ def main():
         print("for page {} took {} to parse".format(yad2.page_num + STARTING_PAGE, end - start))
 
 
+main()
     # Todo: 1. What should I do, when we have more than one TABU/GUSh
     # Todo: 2. handle when the screen is going to sleep
     # Todo: 3. improve logging to be into file
@@ -294,9 +318,6 @@ def main():
     # אל סלט 4
     #
 
-
-if __name__ == '__main__':
-    main()
 
 """
 selenium.common.exceptions.StaleElementReferenceException: Message: 
