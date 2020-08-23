@@ -105,38 +105,19 @@ class ForSalePropertiesSqlite(object):
         try:
             query_result = cursor.execute(select_query)
             rows = query_result.fetchall()
-            n = len(rows)
-            for i in range(n):
-                print('match row_num={}'.format(i))
-                row = rows[i]
-                print('address={}'.format(row['address']))
-                print('keys={}'.format(row.keys()))
-                for memeber in row:
-                    print('{}'.format(memeber))
-                    # print ('{}={}'.format(memeber, row[memeber]))
             return rows
         finally:
             cursor.close()
 
     def select_all_with_no_avg(self):
-        print('selecting all from yad2_for_sale_properties_sqlite')
+        logger.info('selecting prop that need compare_avg value from yad2_for_sale_properties_sqlite ')
         cursor = self.sqlite_connection.cursor()
 
-        select_query = f"SELECT * FROM '{self.table_name}' WHERE compare_average!=0"  # check this one
+        select_query = f"SELECT * FROM '{self.table_name}' WHERE compare_average==0"
 
         try:
             query_result = cursor.execute(select_query)
-            rows = query_result.fetchall()
-            n = len(rows)
-            for i in range(n):
-                print('match row_num={}'.format(i))
-                row = rows[i]
-                print('address={}'.format(row['address']))
-                print('keys={}'.format(row.keys()))
-                for memeber in row:
-                    print('{}'.format(memeber))
-                    # print ('{}={}'.format(memeber, row[memeber]))
-            return rows
+            return query_result.fetchall()
         finally:
             cursor.close()
 

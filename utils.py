@@ -5,16 +5,15 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
 
-class NoRelevantHistroyPropetiesExc(Exception):
+class NoRelevantHistoryPropertiesExc(Exception):
     pass
 
 
-def calculate_percentile_for_property(yad2_prop_price: float, yad2_prop_size: float, relevant_records_for_average: list,
-                                      address: object) -> float:
+def calculate_percentile_for_property(yad2_row: object, relevant_records_for_average: list) -> float:
     logging_num_of_relevant_prop_for_avg(relevant_records_for_average)
     if not relevant_records_for_average:
-        raise NoRelevantHistroyPropetiesExc('no relevant history prop to compare')
-    yad2_prop_price_per_meter = yad2_prop_price / yad2_prop_size
+        raise NoRelevantHistoryPropertiesExc('no relevant history prop to compare')
+    yad2_prop_price_per_meter = float(yad2_row['price']) / float(yad2_row['size'])
     logger.info(f'yad2_prop_price_per_meter={yad2_prop_price_per_meter}')
 
     value_per_meter_list = []
@@ -34,7 +33,7 @@ def calculate_percentile_for_property(yad2_prop_price: float, yad2_prop_size: fl
     logger.info(f'yad2_property_percentile={yad2_property_percentile}')
 
     if yad2_property_percentile <= 0.95:
-        logger.info(f'Found Potential property! at {address}')
+        logger.info(f'Found Potential property! at {yad2_row["address"]}')
 
     return yad2_property_percentile * 100
 
