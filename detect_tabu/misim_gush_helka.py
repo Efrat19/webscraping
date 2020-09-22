@@ -9,9 +9,6 @@ from selenium.webdriver.common.keys import Keys
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
-executable_path_phantomjs = '/Users/idan.narotzki/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs'
-executable_firefox = '/Users/idan.narotzki/Downloads/firefox'
-
 
 class TabuMissimWebPage:
     url = 'https://www.misim.gov.il/svinfonadlan2010/searchGushHelka.aspx?ProcessKey=7462636c-563b-45e6-a5f5-261637d663c5'

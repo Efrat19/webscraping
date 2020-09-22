@@ -8,41 +8,6 @@ from selenium.webdriver.common.by import By
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
-executable_path_phantomjs = '/Users/idan.narotzki/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs'
-executable_firefox = '/Users/idan.narotzki/Downloads/firefox'
-
-# example 1 #
-
-"""driver = webdriver.Firefox()
-driver.get("http://pythonscraping.com/pages/javascript/ajaxDemo.html")
-time.sleep(3)
-print(driver.find_element_by_id("content").text)
-driver.close()
-"""
-
-# example 2 #
-
-"""def waitForLoad(driver):
-    elem = driver.find_element_by_tag_name("html")
-    count = 0
-    while True:
-        count += 1
-        if count > 20:
-            print("Timing out after 10 seconds and returning")
-            return
-        time.sleep(.5)
-        try:
-            elem == driver.find_element_by_tag_name("html")
-        except StaleElementReferenceException:
-            return
-
-
-driver = webdriver.PhantomJS(executable_path=executable_path_phantomjs)
-driver.get("http://pythonscraping.com/pages/javascript/redirectDemo1.html")
-inputbox=driver.find_element_by_class_name('AddressInput')
-waitForLoad(driver)
-print(driver.page_source)"""
-
 
 class Mapi:
     mapi_url = 'https://www.mapi.gov.il/Pages/LotAddressLocator.aspx'
@@ -115,4 +80,4 @@ class Mapi:
             return 1, 1
 
 # mapi = Mapi('חיפה')
-# mapi.extract_deals_records_list_for_tabu('קרן היסוד 10 חיפה')
+# mapi.extract_deals_records_list_for_tabu('הראל 10 חיפה')

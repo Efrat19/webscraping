@@ -12,5 +12,5 @@ def parse_address_by_street_num(address):
             street += c
     return street.rstrip(), number.rstrip()
 
-# street, num = parse_address_by_street_num('קרן היסוד 10')
-# assert street=='קרן היסוד'
+# street, num = parse_address_by_street_num('הראל 10')
+# assert street=='הראל'

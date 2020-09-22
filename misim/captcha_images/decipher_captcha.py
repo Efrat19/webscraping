@@ -5,7 +5,7 @@ from bestcaptchasolverapi3.bestcaptchasolverapi import BestCaptchaSolverAPI
 
 # !/usr/bin/python3.7
 
-ACCESS_TOKEN = '22AE66A0BC7348D0B199995AF2DF8D18'
+ACCESS_TOKEN = '<Token>'
 
 
 # for more details check https://bestcaptchasolver.com/captchabypass-api
