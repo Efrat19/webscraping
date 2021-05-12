@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 from datetime import datetime
 from sqlite3 import OperationalError
 from time import sleep
@@ -26,8 +27,7 @@ def select_yad2_rows_and_update_avg():
                                                                                         start_helka=yad2_row['helka'],
                                                                                         end_helka=yad2_row['helka'])
 
-        print(f'for address {yad2_row["address"]} got the following deals_record_list_for_tabu: '
-              f'{deals_record_list_for_tabu}')
+        print('for address {yad2_row["address"]} got the following deals_record_list_for_tabu: '%deals_record_list_for_tabu)
 
         relevant_records_for_average = []
         update_avg_for_yad2_row_in_db(yad2_row, deals_record_list_for_tabu, relevant_records_for_average)
@@ -35,7 +35,7 @@ def select_yad2_rows_and_update_avg():
         refresh_web_page_actions()
 
 
-def update_avg_for_yad2_row_in_db(yad2_row, deals_record_list_for_tabu, relevant_records_for_average: list) -> None:
+def update_avg_for_yad2_row_in_db(yad2_row, deals_record_list_for_tabu, relevant_records_for_average):
     for deal_record in deals_record_list_for_tabu:
         missim_prop_db.insert(deal_record, yad2_row["address"])
 
@@ -46,11 +46,11 @@ def update_avg_for_yad2_row_in_db(yad2_row, deals_record_list_for_tabu, relevant
         yad2_prop_percentile = calculate_percentile_for_property(yad2_row, relevant_records_for_average)
         yad2_for_sale_properties_sqlite.update_average(yad2_row, yad2_prop_percentile)
     except NoRelevantHistoryPropertiesExc as e:
-        print(f'{str(e)}')
+        print('{str(e)}')
         try:
             yad2_for_sale_properties_sqlite.update_average(yad2_row, -100)
         except OperationalError as e:
-            print(f'{e}')
+            print('{e}')
 
 
 def refresh_web_page_actions():
